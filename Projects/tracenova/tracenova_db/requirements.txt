@@ -1,0 +1,20 @@
+# requirements.txt
+
+# Core dependencies
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+python-dotenv
+
+# Compatibility with Pydantic v2
+pydantic>=2.0
+pydantic-settings
+
+# Build dependencies
+build
+cython
+
+# Dev/test
+pytest
+httpx
