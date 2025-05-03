@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  trace_decoder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: trace_decoder
+    ports:
+      - "8000:8000"
+    environment:
+      - TRACENOVA_DB_API=http://tracenova_db:8001
+    depends_on:
+      - tracenova_db
+
+  tracenova_db:
+    image: tracenova_db-web:latest  # Replace with your actual image name/tag
+    container_name: tracenova_db
+    ports:
+      - "8001:8001"
+    environment:
+      - POSTGRES_DB=tracedb
+      - POSTGRES_USER=traceuser
+      - POSTGRES_PASSWORD=tracepass
+    restart: unless-stopped

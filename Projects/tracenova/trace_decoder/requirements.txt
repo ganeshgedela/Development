@@ -1,0 +1,18 @@
+# --- Web framework & server ---
+fastapi==0.110.1                  # Modern Python web framework for APIs
+uvicorn[standard]==0.29.0         # ASGI server to run FastAPI apps (with reload, logging, etc.)
+
+# --- Network trace parsing ---
+pyshark==0.6                      # Python wrapper for tshark (used to parse PCAP files)
+
+# --- HTTP and REST communication ---
+requests==2.31.0                  # Synchronous HTTP client (used to communicate with tracenova_db)
+
+# --- Data models and validation ---
+pydantic==2.6.4                   # Data validation and BaseModel support (for packets, SIP, etc.)
+python-multipart==0.0.9           # Enables support for `UploadFile = File(...)` (multipart form data)
+
+# --- Testing tools ---
+pytest==8.2.0                     # Python test runner
+pytest-asyncio==0.23.6            # Pytest plugin for async support (FastAPI testing)
+httpx==0.27.0                     # Async HTTP client for testing FastAPI endpoints
