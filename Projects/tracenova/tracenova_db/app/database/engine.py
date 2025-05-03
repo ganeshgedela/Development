@@ -24,7 +24,8 @@ def get_database_url():
 DATABASE_URL = get_database_url()
 engine = create_engine(
     DATABASE_URL,
-    connect_args={"check_same_thread": False} if settings.DB_ENGINE == "sqlite" else {}
+    connect_args={"check_same_thread": False} if settings.DB_ENGINE == "sqlite" else {},
+    pool_pre_ping=True # Helps auto-reconnect for MySQL/Postgres
 )
 
 # Session maker

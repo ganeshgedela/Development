@@ -1,10 +1,14 @@
-# requirements.txt
-
 # Core dependencies
 fastapi
 uvicorn
 sqlalchemy
-psycopg2-binary
+
+# PostgreSQL driver (commented out for MySQL setup)
+# psycopg2-binary
+
+# MySQL driver (uncommented for MySQL support)
+pymysql
+
 python-dotenv
 
 # Compatibility with Pydantic v2
@@ -18,3 +22,4 @@ cython
 # Dev/test
 pytest
 httpx
+requests

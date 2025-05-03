@@ -1,0 +1,82 @@
+@startuml
+skinparam componentStyle rectangle
+skinparam backgroundColor #FAFAFA
+skinparam component {
+    BackgroundColor<<service>> #D0E6A5
+    BackgroundColor<<module>> #FFDD94
+    BackgroundColor<<api>> #FCB0B3
+    BackgroundColor<<db>> #B0E0E6
+    BorderColor Black
+}
+
+package "tracenova_db" {
+    
+    [main.py] <<service>>
+
+    component "config.py" <<module>>
+    component "engine.py" <<module>>
+    
+    package "models" {
+        [packet_model.py] <<module>>
+        [sip_packet_model.py] <<module>>
+        [network_trace_model.py] <<module>>
+    }
+
+    package "schemas" {
+        [packet_schema.py] <<module>>
+        [sip_packet_schema.py] <<module>>
+        [network_trace_schema.py] <<module>>
+    }
+
+    package "crud" {
+        [packet_crud.py] <<module>>
+        [sip_packet_crud.py] <<module>>
+        [network_trace_crud.py] <<module>>
+    }
+
+    package "routers" {
+        [packet_routes.py] <<api>>
+        [sip_packet_routes.py] <<api>>
+        [network_trace_routes.py] <<api>>
+        [tracenova_db_client.py] <<api>>
+    }
+
+    package "tests" {
+        [test_packet_api.py]
+        [test_sip_packet_api.py]
+        [test_trace_file_api.py]
+        [test_tracenova_db_client.py]
+    }
+
+    database "PostgreSQL" <<db>>
+
+    main.py --> engine.py
+    main.py --> packet_routes.py
+    main.py --> sip_packet_routes.py
+    main.py --> network_trace_routes.py
+
+    packet_routes.py --> packet_crud.py
+    sip_packet_routes.py --> sip_packet_crud.py
+    network_trace_routes.py --> network_trace_crud.py
+
+    packet_crud.py --> packet_model.py
+    sip_packet_crud.py --> sip_packet_model.py
+    network_trace_crud.py --> network_trace_model.py
+
+    packet_model.py --> engine.py
+    sip_packet_model.py --> engine.py
+    network_trace_model.py --> engine.py
+
+    packet_crud.py --> packet_schema.py
+    sip_packet_crud.py --> sip_packet_schema.py
+    network_trace_crud.py --> network_trace_schema.py
+
+    engine.py --> "PostgreSQL"
+    config.py --> engine.py
+
+    test_packet_api.py --> packet_routes.py
+    test_sip_packet_api.py --> sip_packet_routes.py
+    test_trace_file_api.py --> network_trace_routes.py
+    test_tracenova_db_client.py --> tracenova_db_client.py
+}
+@enduml
